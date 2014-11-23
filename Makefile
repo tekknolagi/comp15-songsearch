@@ -11,8 +11,8 @@ clean:
 	rm -f songsearch
 
 provide_design:
-	provide comp15 hw5_design songsearch_design.txt
+	provide comp15 hw6_design songsearch_design.txt
 
 provide:
-	provide comp15 hw5 <all your files go here>
+	provide comp15 hw6 <all your files go here>
 
