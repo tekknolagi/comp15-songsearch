@@ -1,0 +1,42 @@
+# ReadMe for COMP 15 HW6
+## Song Search 
+
+### Purpose
+
+The purpose of the assignment is to implement a search on a large song database.
+In this search, we use a hash table and vectors of Song classes.
+
+A hash table of all words ever used in every song will hold a vector of the top
+ten songs to have that word (ranked by usage of that word in the song). For
+context, each of the instances of a word in a song will also have indices in the
+lyric array. This way, we can easily get -5 and +5 words (from either side).
+
+While reading in words, a vector of songs to use each word will update and
+truncate in order to only keep the top 10.
+
+### Files
+
+
+
+### Building
+
+`make`
+
+### Benchmarking
+
+`make bench`
+
+### Structures
+
+#### Hash Table
+
+
+
+#### STL Vector
+
+
+
+### Algorithms
+
+#### Jenkins lookup3 Hash
+
