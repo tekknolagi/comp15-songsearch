@@ -3,6 +3,8 @@
 
 ### Purpose
 
+Checked by Chris Gregg.
+
 The purpose of the assignment is to implement a search on a large song database.
 In this search, we use a hash table and vectors of Song classes.
 
