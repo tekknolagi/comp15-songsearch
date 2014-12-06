@@ -24,7 +24,11 @@ int main (int argc, char *argv[]) {
 		//filename = "lyrics_fulldb.txt";
                 read_lyrics(&h, filename.c_str(),false);
                 cout << "LOADED!" << endl;
-                h.getWord("my")->print();
+                string word = "";
+                while (word != "<BREAK>") {
+                        cin >> word;
+                        h.getWord(word)->print();
+                }
 	}
         //wordlist.search();
 
