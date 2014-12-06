@@ -4,20 +4,34 @@ static string alpha_only (string s);
 
 void HashTable::addWord (string word, Song *song) {
         word = alpha_only(word);
-        uint32_t hash = hash_string(word) % size;
+        uint32_t hash = hash_string(word);
 
-        if (contents[hash])
-                contents[hash]->addWord(word, song);
+        if (contents[hash % size]) {
+                size_t probe = 0;
+                word_vec_pair_t *res = NULL;
+                while ((res = contents[(hash + probe) % size])
+                       && !((hash + probe) == hash && probe != 0)
+                       && res->word == word) {
+                        res->addWord(word, song);
+                        return;
+                }
+        }
         else {
-                contents[hash] = new word_vec_pair_t(word, song);
+                contents[hash % size] = new word_vec_pair_t(word, song);
                 load++;
         }
 }
 
 word_vec_pair_t *HashTable::getWord (string word) {
         word = alpha_only(word);
-        uint32_t hash = hash_string(word) % size;
-        return contents[hash];
+        uint32_t hash = hash_string(word);
+        size_t probe = 0;
+        word_vec_pair_t *res = NULL;
+        while ((res = contents[(hash + probe) % size])
+               && !((hash + probe) % size == hash && probe != 0)
+               && res->word != word) {
+        }
+        return res;
 }
 
 void HashTable::resize () {
