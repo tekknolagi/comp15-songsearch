@@ -29,14 +29,18 @@ word_vec_pair_t *HashTable::getWord (string word) {
         word = alpha_only(word);
         uint32_t hash = hash_string(word);
         size_t probe = 0;
-        word_vec_pair_t *res = NULL;
-        while ((res = contents[(hash + probe) % size])
-               && !((hash + probe) % size == hash && probe != 0)) {
-                if (res->word == word)
-                        return res;
-                probe++;
-        }
-        return NULL;
+        word_vec_pair_t *res = contents[hash % size];
+        if (res)
+                while (!((hash + probe) % size == hash % size
+                         && probe == 0)) {
+                        res = contents[(hash + probe) % size];
+                        if (res->word == word) {
+                                return res;
+                        }
+                        probe++;
+                }
+        else
+                return NULL;
 }
 
 void HashTable::resize () {
