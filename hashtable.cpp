@@ -39,8 +39,7 @@ word_vec_pair_t *HashTable::getWord (string word) {
                         }
                         probe++;
                 }
-        else
-                return NULL;
+        return NULL;
 }
 
 void HashTable::resize () {
