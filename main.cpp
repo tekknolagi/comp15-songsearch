@@ -26,6 +26,7 @@ int main (int argc, char *argv[]) {
                 cout << "LOADED!" << endl;
                 string word = "";
                 while (word != "<BREAK>") {
+                        cout << "> ";
                         cin >> word;
                         h.getWord(word)->print();
                 }
