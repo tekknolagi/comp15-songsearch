@@ -23,6 +23,7 @@ int main (int argc, char *argv[]) {
                 //filename = "small.txt";
 		//filename = "lyrics_fulldb.txt";
                 read_lyrics(&h, filename.c_str(),false);
+                cout << "LOADED!" << endl;
                 h.getWord("my")->print();
 	}
         //wordlist.search();
