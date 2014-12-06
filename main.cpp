@@ -23,15 +23,15 @@ int main (int argc, char *argv[]) {
                 //filename = "small.txt";
 		//filename = "lyrics_fulldb.txt";
                 read_lyrics(&h, filename.c_str(),false);
-                cout << "LOADED!" << endl;
-                string word = "";
-                while (word != "<BREAK>") {
-                        cout << "> ";
-                        cin >> word;
-                        h.getWord(word)->print();
-                }
 	}
-        //wordlist.search();
+
+        cout << "LOADED!" << endl;
+        string word = "";
+        while (word != "<BREAK>") {
+                cout << "> ";
+                cin >> word;
+                h.getWord(word)->print();
+        }
 
         return 0;
 }

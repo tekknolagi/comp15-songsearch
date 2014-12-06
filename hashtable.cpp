@@ -10,7 +10,9 @@ void HashTable::addWord (string word, Song *song) {
                 size_t probe = 0;
                 word_vec_pair_t *res = NULL;
                 while ((res = contents[(hash + probe) % size])
-                       && !((hash + probe) == hash && probe != 0)) {
+                       && !((hash + probe) == hash
+                            && probe == 0
+                            )) {
                         if (res->word == word) {
                                 res->addWord(word, song);
                                 return;
