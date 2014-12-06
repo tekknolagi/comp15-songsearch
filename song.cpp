@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <iterator>
 #include <sstream>
 
 #include "song.h"
