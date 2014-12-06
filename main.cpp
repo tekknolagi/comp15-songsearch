@@ -2,22 +2,29 @@
  * main.cpp
  *
  */
-#include "WordList.h"
+//#include "WordList.h"
+#include <iostream>
+#include "hashtable.h"
 
-int main(int argc, char *argv[])
-{
+using namespace std;
+
+extern void read_lyrics (HashTable *, const char *, bool);
+
+int main (int argc, char *argv[]) {
+        HashTable h = HashTable(100);
 	string filename;
-	WordList wordlist;
+	//WordList wordlist;
 
 	if (argc == 2) { // if there is a filename on the command line
-		wordlist.read_lyrics(argv[1],true);
+                read_lyrics(&h, argv[1],true);
 	}
 	else { // use a pre-defined filename
 		filename = "rick_db.txt";
+                //filename = "small.txt";
 		//filename = "lyrics_fulldb.txt";
-	        wordlist.read_lyrics(filename.c_str(),true);
+                read_lyrics(&h, filename.c_str(),false);
 	}
-        wordlist.search();
+        //wordlist.search();
 
         return 0;
 }

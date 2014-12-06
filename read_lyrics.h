@@ -12,10 +12,9 @@
 
 using namespace std;
 
-// read the lyrics from a file
-void read_lyrics(char * filename, bool show_progress );
+#include "hashtable.h"
 
-// convert a string to lowercase and without punctuation
-string alpha_only(string s);
+// read the lyrics from a file
+void read_lyrics(HashTable *h, char * filename, bool show_progress );
 
 #endif
