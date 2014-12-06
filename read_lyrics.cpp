@@ -57,6 +57,4 @@ void read_lyrics (HashTable *h, const char * filename, bool show_progress) {
 		// -- Important: skip the newline left behind
 		in.ignore();
 	}
-
-        h->getWord("cry")->print();
 }
