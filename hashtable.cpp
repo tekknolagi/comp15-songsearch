@@ -15,6 +15,7 @@ void HashTable::addWord (string word, Song *song) {
                                 res->addWord(word, song);
                                 return;
                         }
+                        probe++;
                 }
         }
         else {
@@ -32,7 +33,9 @@ word_vec_pair_t *HashTable::getWord (string word) {
                && !((hash + probe) % size == hash && probe != 0)) {
                 if (res->word == word)
                         return res;
+                probe++;
         }
+        return NULL;
 }
 
 void HashTable::resize () {
