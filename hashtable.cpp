@@ -10,10 +10,11 @@ void HashTable::addWord (string word, Song *song) {
                 size_t probe = 0;
                 word_vec_pair_t *res = NULL;
                 while ((res = contents[(hash + probe) % size])
-                       && !((hash + probe) == hash && probe != 0)
-                       && res->word == word) {
-                        res->addWord(word, song);
-                        return;
+                       && !((hash + probe) == hash && probe != 0)) {
+                        if (res->word == word) {
+                                res->addWord(word, song);
+                                return;
+                        }
                 }
         }
         else {
@@ -28,10 +29,10 @@ word_vec_pair_t *HashTable::getWord (string word) {
         size_t probe = 0;
         word_vec_pair_t *res = NULL;
         while ((res = contents[(hash + probe) % size])
-               && !((hash + probe) % size == hash && probe != 0)
-               && res->word != word) {
+               && !((hash + probe) % size == hash && probe != 0)) {
+                if (res->word == word)
+                        return res;
         }
-        return res;
 }
 
 void HashTable::resize () {
