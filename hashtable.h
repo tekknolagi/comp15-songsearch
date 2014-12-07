@@ -24,10 +24,13 @@ typedef struct word_freq_s {
     this->song = song;
     this->freq = freq;
   }
+  // overrode so i could use std::find
   bool operator == (Song *other) {
+    if (!other) return false;
     return song == other;
   }
   bool operator != (Song *other) {
+    if (!other) return false;
     return !(*this == other);
   }
 } word_freq_t;
@@ -88,6 +91,7 @@ class HashTable {
   word_vec_pair_t *getWord (string word);
 
  private:
+  void insert (string word, Song *song);
   void resize ();
   double getLoad () {
     return load/(double) size;

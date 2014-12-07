@@ -11,7 +11,7 @@ using namespace std;
 extern void read_lyrics (HashTable *, const char *, bool);
 
 int main (int argc, char *argv[]) {
-        HashTable h = HashTable(100);
+        HashTable h = HashTable(1000);
 	string filename;
 	//WordList wordlist;
 
@@ -27,10 +27,10 @@ int main (int argc, char *argv[]) {
 
         cout << "LOADED!" << endl;
         string word = "";
-        while (word != "<BREAK>") {
-                cout << "> ";
-                cin >> word;
-                h.getWord(word)->print();
+        while (cout << "> " && cin >> word && word != "<BREAK>") {
+                word_vec_pair_t *res = h.getWord(word);
+                if (res) res->print();
+                else cout << "No results." << endl;
         }
 
         return 0;
