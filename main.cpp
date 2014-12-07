@@ -3,6 +3,7 @@
  *
  */
 #include <iostream>
+#include <unistd.h>
 #include <vector>
 #include "hashtable.h"
 
@@ -27,7 +28,10 @@ int main (int argc, char *argv[]) {
 	}
 
         string word = "";
-        while (cout << "> " && cin >> word && word != "<BREAK>") {
+        while (true) {
+                if (isatty(0))
+                        cout << "> "; 
+                if ((cin >> word) && word == "<BREAK>") break;
                 word_vec_pair_t *res = h.getWord(word);
                 if (res) res->print();
 		cout << "<END OF REPORT>" << endl;
