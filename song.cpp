@@ -4,9 +4,12 @@
 #include <iterator>
 #include <sstream>
 
+#include "hashtable.h"
 #include "song.h"
 
 #define initSong(a, t) {this->artist = (a); this->title = (t);}
+
+extern string alpha_only (string);
 
 Song::Song () {
         initSong("uninitialized", "uninitialized");
@@ -34,13 +37,12 @@ void Song::addWord (string word) {
 
 // TODO: fix
 string Song::getContext (string word) {
-        size_t len = lyrics.size();
         stringstream ss;
 
         for (vector<string>::iterator i = lyrics.begin();
              i != lyrics.end();
              i++) {
-                if (*i == word) {
+                if (alpha_only(*i) == word) {
                         vector<string>::iterator
                                 first = i - 5,
                                 last = i + 6;

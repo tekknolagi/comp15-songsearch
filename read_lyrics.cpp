@@ -43,11 +43,11 @@ void read_lyrics (HashTable *h, vector<Song *> *songs, const char * filename, bo
                 Song *s = new Song(artist, title);
 		songs->push_back(s);
 
-		// if (show_progress && ++song_count % 10000) {
-		//   cout << "At "       << song_count << 
-		//     " Artist: " << artist     << 
-		//     " Title: `"   << title << "`" << endl;
-		// }
+		if (show_progress && !(++song_count % 10000)) {
+		  cout << "At "       << song_count << 
+		    " Artist: " << artist     << 
+		    " Title: `"   << title << "`" << endl;
+		}
 
 		// -- Then read all words until we hit the 
 		// -- special <BREAK> token

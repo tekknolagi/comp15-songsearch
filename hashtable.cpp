@@ -3,10 +3,9 @@
 
 using namespace std;
 
-static string alpha_only (string s);
+string alpha_only (string s);
 
 void HashTable::addWord (string word, Song *song) {
-  //cout << "Load: " << getLoad() << ", size: " << size << endl;
         if (getLoad() > 0.5) resize();
         insert(word, song);
 }
@@ -29,25 +28,20 @@ void HashTable::insert (string word, Song *song) {
         uint32_t hash = hash_string(word);
 
         if (contents[hash % size]) {
-	  //cout << "if... ";
                 size_t probe = 0;
                 word_vec_pair_t *res = NULL;
                 while ((res = contents[(hash + probe) % size]) != NULL) {
                         if (res->word == word) {
                                 res->addWord(word, song);
-                                //cout << "if done - hit word" << endl;
                                 return;
                         }
                         probe++;
                 }
-                //cout << "if done - hit NULL" << endl;
                 contents[(hash + probe) % size] = new word_vec_pair_t(word, song);
         }
         else {
-	  //cout << "else... ";
                 contents[hash % size] = new word_vec_pair_t(word, song);
                 load++;
-                //cout << "else done" << endl;
         }
 }
 
@@ -73,7 +67,7 @@ void HashTable::resize () {
         size = newsize;
 }
 
-static string alpha_only (string s) {
+string alpha_only (string s) {
         // ostringstream ss;
         // for (size_t i = 0; i < s.length(); i++)
         //         if (isalnum(s[i]))

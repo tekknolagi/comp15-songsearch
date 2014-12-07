@@ -9,9 +9,6 @@
 #include "hashfunc.h"
 #include "song.h"
 
-#define NUM_RESULTS 10
-#define ARR_SIZE (NUM_RESULTS+1)
-
 using namespace std;
 
 typedef struct word_freq_s {
@@ -37,7 +34,6 @@ typedef struct word_freq_s {
 
 typedef struct word_vec_pair_s {
   vector<word_freq_t> songs;
-  //word_freq_t songs[ARR_SIZE];
   string word;
 
   word_vec_pair_s (string word, Song *song) {
@@ -46,6 +42,7 @@ typedef struct word_vec_pair_s {
     this->word = word;
   }
   void addWord (string word, Song *song) {
+    (void)word; // make clang happy // TODO: fix
     vector<word_freq_t>::iterator i = find(songs.begin(), songs.end(), song);
     // found
     if (i != songs.end()) {
@@ -78,11 +75,11 @@ class HashTable {
   HashTable (size_t size) {
     this->size = size;
     contents = new word_vec_pair_t*[size];
-    for (int i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++)
       contents[i] = NULL;
   }
   ~HashTable () {
-    for (int i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++)
       if (contents[i])
     	delete contents[i];
     delete [] contents;

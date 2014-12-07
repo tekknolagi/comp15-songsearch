@@ -2,8 +2,8 @@
  * main.cpp
  *
  */
-//#include "WordList.h"
 #include <iostream>
+#include <vector>
 #include "hashtable.h"
 
 using namespace std;
