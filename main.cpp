@@ -8,30 +8,38 @@
 
 using namespace std;
 
-extern void read_lyrics (HashTable *, const char *, bool);
+extern void read_lyrics (HashTable *, vector<Song *> *, const char *, bool);
 
 int main (int argc, char *argv[]) {
-        HashTable h = HashTable(1000);
+        HashTable h = HashTable(1);
 	string filename;
+	vector<Song *> songs;
 	//WordList wordlist;
 
 	if (argc == 2) { // if there is a filename on the command line
-                read_lyrics(&h, argv[1],true);
+	  read_lyrics(&h, &songs, argv[1],true);
 	}
 	else { // use a pre-defined filename
 		filename = "rick_db.txt";
                 //filename = "small.txt";
 		//filename = "lyrics_fulldb.txt";
-                read_lyrics(&h, filename.c_str(),false);
+                read_lyrics(&h, &songs, filename.c_str(),false);
 	}
 
-        cout << "LOADED!" << endl;
         string word = "";
         while (cout << "> " && cin >> word && word != "<BREAK>") {
                 word_vec_pair_t *res = h.getWord(word);
                 if (res) res->print();
-                else cout << "No results." << endl;
+		cout << "<END OF REPORT>" << endl;
         }
+
+	Song *cur = NULL;
+	while (!songs.empty()) {
+	  cur = songs.back();
+	  delete cur;
+	  cur = NULL;
+	  songs.pop_back();
+	}
 
         return 0;
 }

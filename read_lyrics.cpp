@@ -7,6 +7,7 @@
 //
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include <fstream>
 
 #include "hashtable.h"
@@ -21,7 +22,7 @@ using namespace std;
 //   returns: nothing
 //   does: calls a function each time a word is found
 //
-void read_lyrics (HashTable *h, const char * filename, bool show_progress) {
+void read_lyrics (HashTable *h, vector<Song *> *songs, const char * filename, bool show_progress) {
         ifstream in(filename);			// creates an input stream
         int song_count = 0;			// for progress indicator
 	string artist, title, word;
@@ -36,15 +37,18 @@ void read_lyrics (HashTable *h, const char * filename, bool show_progress) {
 		getline(in, title);
 		if (in.fail()) break;
 
+		// if (title.find("Sensation White") != string::npos)
+		//   cout << "FOUND SENSATION WHITE" << endl;
+ 
                 Song *s = new Song(artist, title);
+		songs->push_back(s);
 
-		if (show_progress) {
-			if (song_count++ % 10000 == 0) {
-				cout << "At "       << song_count << 
-					" Artist: " << artist     << 
-					" Title: "   << title << endl;
-			}
-		}
+		// if (show_progress && ++song_count % 10000) {
+		//   cout << "At "       << song_count << 
+		//     " Artist: " << artist     << 
+		//     " Title: `"   << title << "`" << endl;
+		// }
+
 		// -- Then read all words until we hit the 
 		// -- special <BREAK> token
 		while (in >> word && word != "<BREAK>") {

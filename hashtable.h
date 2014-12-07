@@ -84,7 +84,7 @@ class HashTable {
   ~HashTable () {
     for (int i = 0; i < size; i++)
       if (contents[i])
-	delete contents[i];
+    	delete contents[i];
     delete [] contents;
   }
   void addWord (string word, Song *song);
