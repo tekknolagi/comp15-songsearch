@@ -28,7 +28,9 @@ typedef struct word_freq_s {
   }
   bool operator != (Song *other) {
     if (!other) return false;
-    return !(*this == other);
+    return song != other;
+    // might be very slow according to perf
+    // return !(*this == other);
   }
 } word_freq_t;
 
