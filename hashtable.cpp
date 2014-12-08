@@ -38,6 +38,7 @@ void HashTable::insert (string word, Song *song) {
                         probe++;
                 }
                 contents[(hash + probe) % size] = new word_vec_pair_t(word, song);
+		load++;
         }
         else {
                 contents[hash % size] = new word_vec_pair_t(word, song);

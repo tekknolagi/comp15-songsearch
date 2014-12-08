@@ -71,10 +71,12 @@ typedef struct word_vec_pair_s {
 class HashTable {
  public:
   HashTable () {
+    load = 0;
     size = 0;
     contents = NULL;
   }
   HashTable (size_t size) {
+    load = 0;
     this->size = size;
     contents = new word_vec_pair_t*[size];
     for (size_t i = 0; i < size; i++)
