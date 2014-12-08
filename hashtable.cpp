@@ -32,7 +32,7 @@ void HashTable::insert (string word, Song *song) {
                 word_vec_pair_t *res = NULL;
                 while ((res = contents[(hash + probe) % size]) != NULL) {
                         if (res->word == word) {
-                                res->addWord(word, song);
+                                res->addWord(song);
                                 return;
                         }
                         probe++;

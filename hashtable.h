@@ -16,6 +16,7 @@ typedef struct word_freq_s {
   int freq;
 
   // important - resize() will complain if this does not exist
+  // needs constructor when adding "empty" elements
   word_freq_s () {}
   word_freq_s (Song *song, int freq) {
     this->song = song;
@@ -26,10 +27,11 @@ typedef struct word_freq_s {
     if (!other) return false;
     return song == other;
   }
+  // this too
   bool operator != (Song *other) {
     if (!other) return false;
     return song != other;
-    // might be very slow according to perf
+    // dereference might be very slow according to perf:
     // return !(*this == other);
   }
 } word_freq_t;
@@ -38,13 +40,14 @@ typedef struct word_vec_pair_s {
   vector<word_freq_t> songs;
   string word;
 
+  // initialize a new pair and add the first frequency
   word_vec_pair_s (string word, Song *song) {
-    //songs.resize(10);
     songs.push_back(word_freq_t(song, 1));
     this->word = word;
   }
-  void addWord (string word, Song *song) {
-    (void)word; // make clang happy // TODO: fix
+
+  void addWord (Song *song) {
+    // this uses the overloaded operator(s)
     vector<word_freq_t>::iterator i = find(songs.begin(), songs.end(), song);
     // found
     if (i != songs.end()) {
