@@ -60,7 +60,6 @@ void HashTable::insert (string word, Song *song) {
 void HashTable::resize () {
   uint32_t hash = 0;
   size_t newsize = size * 2 + 1;
-  word_vec_pair_t *res = NULL;
 
   // initialize the new table's contents to NULL
   word_vec_pair_t **newcontents = new word_vec_pair_t*[newsize];
@@ -69,10 +68,16 @@ void HashTable::resize () {
   for (size_t i = 0; i < size; i++) {
     // re-hash the word and move the contents over
     if (contents[i]) {
-      size_t probe = 0;
-      hash = hash_string(contents[i]->word);
-      while ((res = newcontents[(hash + probe) % newsize]) && probe++);
-      newcontents[(hash + probe) % newsize] = contents[i];
+      //size_t probe = 0;
+      hash = hash_string(contents[i]->word) % newsize;
+      //while (newcontents[(hash + probe) % newsize] != NULL) {	
+      //}
+      while (newcontents[hash] != NULL) {
+	if (newcontents[hash]->word == contents[i]->word)
+	  break;
+	hash = ((hash + 1) % (newsize));
+      }
+      newcontents[hash] = contents[i];
     }
   }
 
