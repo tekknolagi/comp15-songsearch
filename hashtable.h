@@ -22,6 +22,10 @@ typedef struct word_freq_s {
     this->song = song;
     this->freq = freq;
   }
+  // overrode so i could use std::sort
+  bool operator < (const word_freq_s& other) const {
+    return this->freq < other.freq;
+  }
   // overrode so i could use std::find
   bool operator == (Song *other) {
     if (!other) return false;
@@ -56,11 +60,7 @@ typedef struct word_vec_pair_s {
     // found
     if (i != songs.end()) {
       i->freq++;
-      // not at beginning; moveable
-      while (i != songs.begin() && (i-1)->freq < i->freq) {
-	iter_swap(i, i-1);
-	i--;
-      }
+      sort(songs.rbegin(), songs.rend()); // sort backwards (i.e. descending)
 
       // shrink back to avoid memory bloat
       if (songs.size() > 10)
