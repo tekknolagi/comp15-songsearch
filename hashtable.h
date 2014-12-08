@@ -46,6 +46,10 @@ typedef struct word_vec_pair_s {
     this->word = word;
   }
 
+  // find the song in the vector
+  // if not found, push to the back
+  // if found, increment frequency and
+  // swap until the song is in the "right" place
   void addWord (Song *song) {
     // this uses the overloaded operator(s)
     vector<word_freq_t>::iterator i = find(songs.begin(), songs.end(), song);
@@ -58,13 +62,15 @@ typedef struct word_vec_pair_s {
 	i--;
       }
 
+      // shrink back to avoid memory bloat
       if (songs.size() > 10)
 	songs.resize(10);
     }
-    // not found
+    // not found - add to back
     else
       songs.push_back(word_freq_t(song, 1));
   }
+  // print all the contexts of this word in every song
   void print () {
     for (vector<word_freq_t>::iterator i = songs.begin(); i != songs.end(); i++)
       cout << i->song->getContext(word);
@@ -78,6 +84,7 @@ class HashTable {
     size = 0;
     contents = NULL;
   }
+  // allocate a table size long, but not the elements inside
   HashTable (size_t size) {
     load = 0;
     this->size = size;
@@ -85,6 +92,8 @@ class HashTable {
     for (size_t i = 0; i < size; i++)
       contents[i] = NULL;
   }
+  // destroy the entire table...
+  // TODO: may leak
   ~HashTable () {
     for (size_t i = 0; i < size; i++)
       if (contents[i])
@@ -97,6 +106,8 @@ class HashTable {
  private:
   void insert (string word, Song *song);
   void resize ();
+  // get the load factor for the table
+  // generally a good idea to keep load < 0.6
   double getLoad () {
     return load/(double) size;
   }

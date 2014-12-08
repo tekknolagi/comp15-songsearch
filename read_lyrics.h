@@ -17,6 +17,6 @@ using namespace std;
 #include "hashtable.h"
 
 // read the lyrics from a file
-void read_lyrics(HashTable *h, vector<Song *> *songs, char * filename, bool show_progress );
+void read_lyrics (HashTable *h, vector<Song *> *songs, char * filename, bool show_progress);
 
 #endif
