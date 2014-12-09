@@ -15,6 +15,7 @@ provide_design:
 	provide comp15 hw6_design songsearch_design.txt
 
 provide:
-	provide comp15 hw6 Makefile main.cpp song.cpp hashtable.cpp hashfunc.cpp \
-		read_lyrics.cpp song.h hashtable.h hashfunc.h read_lyrics.h
+	provide comp15 hw6 ReadMe.md Makefile main.cpp song.cpp hashtable.cpp \
+		hashfunc.cpp read_lyrics.cpp song.h hashtable.h hashfunc.h \
+		read_lyrics.h
 
