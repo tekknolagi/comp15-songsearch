@@ -23,6 +23,7 @@ typedef struct word_freq_s {
     this->freq = freq;
   }
   // overrode so i could use std::sort
+  // sorts BACKWARDS (ie descending order)
   bool operator < (const word_freq_s& other) const {
     return this->freq > other.freq;
   }

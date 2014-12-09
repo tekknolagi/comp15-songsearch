@@ -70,6 +70,7 @@ void HashTable::resize () {
     if (contents[i]) {
       //size_t probe = 0;
       hash = hash_string(contents[i]->word) % newsize;
+      // TODO: debug old code
       //while (newcontents[(hash + probe) % newsize] != NULL) {	
       //}
       while (newcontents[hash] != NULL) {
