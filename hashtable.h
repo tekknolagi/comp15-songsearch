@@ -65,9 +65,9 @@ typedef struct word_vec_pair_s {
 
       // shrink back to avoid memory bloat
       // is wrong if compared to 11 or 10 instead
-      // TODO: debug
+      // ???
       if (songs.size() > 12)
-	songs.resize(10);
+	songs.resize(12);
     }
     // not found - add to back
     else
@@ -75,8 +75,10 @@ typedef struct word_vec_pair_s {
   }
   // print all the contexts of this word in every song
   void print () {
-    for (vector<word_freq_t>::iterator i = songs.begin(); i != songs.end(); i++)
+    for (vector<word_freq_t>::iterator i = songs.begin(); i != songs.end(); i++) {
+      if (i - songs.begin() == 10) break;
       cout << i->song->getContext(word);
+    }
   }
 } word_vec_pair_t;
 
