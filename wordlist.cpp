@@ -98,6 +98,7 @@ void WordList::search (string term) {
   // searching by artist: "does it start with 'a:'?"
   if (!term.compare(0, artistPrefix.size(), artistPrefix)) {
     string name = term.substr(artistPrefix.size());
+    cout << "search term: " << name << endl;
     res = artists->getWord(name);
     // no word context
     if (res) res->print(false);
@@ -107,7 +108,7 @@ void WordList::search (string term) {
   #ifdef TITLES
   if (!term.compare(0, titlePrefix.size(), titlePrefix)) {
     string name = term.substr(titlePrefix.size());
-    cout << "name: " << name << endl;
+    cout << "search term: " << name << endl;
     res = titles->getWord(name);
     // no word context
     if (res) res->print(false);

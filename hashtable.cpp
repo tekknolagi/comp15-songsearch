@@ -13,15 +13,13 @@ void HashTable::addWord (string word, Song *song) {
 
 // find the word in the table using linear probing
 word_vec_pair_t *HashTable::getWord (string word) {
-  string alpha_word = alpha_only(word);
-  uint32_t hash = hash_string(word);
+  word = alpha_only(word);
   size_t probe = 0;
   word_vec_pair_t *res = NULL;
   // probe until you hit NULL - then the element cannot exist
   // can do this because we don't delete from the hashtable
   while ((res = contents[(hash + probe) % size])) {
-    cout << res->word << "|" << alpha_word << "|" << word << endl;
-    if (res->word == alpha_word || res->word == word)
+    if (res->word == word)
       return res;
     probe++;
   }
