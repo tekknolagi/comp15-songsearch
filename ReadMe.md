@@ -94,6 +94,8 @@ To search by title:
 
 `a:Never Gonna Give You Up`
 
+Currently these together double the build time (not triple :)).
+
 ### Collaborators
 
 * Logan Garbarini
