@@ -1,21 +1,25 @@
 #ifndef WORDLIST_H
 #define WORDLIST_H
 
-#include "heap.h"
+#include <vector>
+
+#include "song.h"
+#include "hashtable.h"
 
 class WordList {
  public:
-  WordList();
-  ~WordList();
+  WordList ();
+  ~WordList ();
 
-  read_lyrics(char *, bool);
-  search();
+  void read_lyrics (const char *, bool);
+  word_vec_pair_t *search (string term);
+  void repl ();
 
  private:
-  // ensure about 70% load (no collisions)
-  // consider http://en.wikipedia.org/wiki/Jenkins_hash_function ?
-  const size_t HASHTABLE_SIZE = 285700;
-  (MaxHeap *) hash_table[HASHTABLE_SIZE] = { 0 };
+  HashTable words;
+  HashTable artists;
+  HashTable titles;
+  vector<Song *> songs;
 };
 
 #endif
