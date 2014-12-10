@@ -20,7 +20,7 @@ word_vec_pair_t *HashTable::getWord (string word) {
   // probe until you hit NULL - then the element cannot exist
   // can do this because we don't delete from the hashtable
   while ((res = contents[(hash + probe) % size])) {
-    cout << res->word << endl;
+    cout << res->word << "|" << alpha_word << "|" << word << endl;
     if (res->word == alpha_word || res->word == word)
       return res;
     probe++;
