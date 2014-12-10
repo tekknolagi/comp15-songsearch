@@ -16,13 +16,18 @@ In this search, we use a hash table and vectors of Song classes.
   * Implement the Song class, which stores artist, title, and lyrics.
 4. `read_lyrics.cpp` and `read_lyrics.h`
   * Read the lyrics from a file and add to hashtable.
+5. `wordlist.cpp` and `wordlist.h`
+  * Some glue to pull all the aforementioned components together.
 5. `main.cpp`
-  * Pull all the aforementioned components together to run the search on a large
-    file.
+  * Run the search on a (large) file.
 
 ### Building
 
 `make`
+
+or
+
+`make extras`
 
 ### Structures
 
@@ -71,6 +76,23 @@ check to see if the value at the location exists. If it does exist, check to see
 if it's the right word. If it's the right word, increment the frequency and
 re-order the results list. If it's not the right word, probe until you hit
 either NULL or the right word. If you hit NULL, allocate a new pair.
+
+### Extras! :D
+
+If you run `make extras`, the program will build more tables so that the user
+can search on both artist and song title. The program will naturally NOT return
+context.
+
+If you wish to speed up build time by only allowing search on artist or only allowing
+search on title, compile with `-DARTIST` or `-DTITLE` respectively.
+
+To search by artist:
+
+`a:Rick Astley`
+
+To search by title:
+
+`a:Never Gonna Give You Up`
 
 ### Collaborators
 
