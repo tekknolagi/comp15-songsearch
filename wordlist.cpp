@@ -7,20 +7,34 @@
 using namespace std;
 
 WordList::WordList () {
-  words = HashTable(1);
-  artists = HashTable(1);
-  titles = HashTable(1);
+  words = new HashTable(1);
+  #ifdef ARTISTS
+  artistPrefix = "a:";
+  artists = new HashTable(1);
+  #endif
+  #ifdef TITLES
+  titlePrefix = "t:";
+  titles = new HashTable(1);
+  #endif
 }
 
 WordList::~WordList () {
+  delete words;
+  #ifdef ARTISTS
+  delete artists;
+  #endif
+  #ifdef TITLES
+  delete titles;
+  #endif
+  
   // free all the songs from the vector
-  // Song *cur = NULL;
-  // while (!songs.empty()) {
-  //   cur = songs.back();
-  //   delete cur;
-  //   cur = NULL;
-  //   songs.pop_back();
-  // }
+  Song *cur = NULL;
+  while (!songs.empty()) {
+    cur = songs.back();
+    delete cur;
+    cur = NULL;
+    songs.pop_back();
+  }
 }
 
 //
@@ -63,7 +77,13 @@ void WordList::read_lyrics (const char * filename, bool show_progress) {
       // add word to song
       s->addWord(word);
       // add word to table
-      words.addWord(word, s);
+      words->addWord(word, s);
+      #ifdef ARTISTS
+      artists->addWord(artist, s);
+      #endif
+      #ifdef TITLES
+      titles->addWord(title, s);
+      #endif
     }
 
     // -- Important: skip the newline left behind
@@ -71,22 +91,40 @@ void WordList::read_lyrics (const char * filename, bool show_progress) {
   }
 }
 
-word_vec_pair_t *WordList::search (string term) {
-  return words.getWord(term);
+void WordList::search (string term) {
+  word_vec_pair_t *res = words->getWord(term);
+  #ifdef ARTISTS
+  // searching by artist: "does it start with 'a:'?"
+  if (!term.compare(0, artistPrefix.size(), artistPrefix)) {
+    string name = term.substr(artistPrefix.size());
+    res = artists->getWord(name);
+    // no word context
+    if (res) res->print(false);
+  }
+  // searching by title
+  #endif
+  #ifdef TITLES
+  if (!term.compare(0, titlePrefix.size(), titlePrefix)) {
+    string name = term.substr(titlePrefix.size());
+    res = titles->getWord(name);
+    // no word context
+    if (res) res->print(false);
+  }
+  #endif
+  res = words->getWord(term);
+  // yes word context
+  if (res) res->print(true);
 }
 
 void WordList::repl () {
   string term = "";
-  word_vec_pair_t *res = NULL;
   while (true) {
     if (isatty(0))
       cout << "> "; 
     // asked to break by user, and did not hit EOF
-    if ((cin >> term) && term == "<BREAK>") break;
-    // search table for term...
-    res = search(term);
-    // ... and print results
-    if (res) res->print();
+    if (getline(cin, term) && term == "<BREAK>") break;
+    // search table for term... and print
+    search(term);
     cout << "<END OF REPORT>" << endl;
   }
 }

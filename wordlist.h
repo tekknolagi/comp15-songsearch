@@ -12,13 +12,19 @@ class WordList {
   ~WordList ();
 
   void read_lyrics (const char *, bool);
-  word_vec_pair_t *search (string term);
+  void search (string term);
   void repl ();
 
  private:
-  HashTable words;
-  HashTable artists;
-  HashTable titles;
+  HashTable *words;
+  #ifdef ARTISTS
+  string artistPrefix;
+  HashTable *artists;
+  #endif
+  #ifdef TITLES
+  string titlePrefix;
+  HashTable *titles;
+  #endif
   vector<Song *> songs;
 };
 

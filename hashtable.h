@@ -75,10 +75,16 @@ typedef struct word_vec_pair_s {
       songs.push_back(word_freq_t(song, 1));
   }
   // print all the contexts of this word in every song
-  void print () {
+  void print (bool context) {
     for (vector<word_freq_t>::iterator i = songs.begin(); i != songs.end(); i++) {
       if (i - songs.begin() == 10) break;
-      cout << i->song->getContext(word);
+      if (context)
+	cout << i->song->getContext(word);
+      else {
+	cout << "Title: " << i->song->getTitle() << endl;
+	cout << "Artist: " << i->song->getArtist() << endl;
+	cout << endl;
+      }
     }
   }
 } word_vec_pair_t;
@@ -115,10 +121,11 @@ class HashTable {
   // get the load factor for the table
   // generally a good idea to keep load < 0.6
   double getLoad () {
-    return load/(double) size;
+    return load/(int) size;
   }
 
-  size_t size, load;
+  double load;
+  size_t size;
   word_vec_pair_t **contents;
 };
 
