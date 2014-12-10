@@ -63,6 +63,13 @@ void WordList::read_lyrics (const char * filename, bool show_progress) {
     Song *s = new Song(artist, title);
     songs.push_back(s);
 
+    #ifdef ARTISTS
+    artists->addWord(artist, s);
+    #endif
+    #ifdef TITLES
+    titles->addWord(title, s);
+    #endif
+
     // print song every 10000 processed
     if (show_progress && !(++song_count % 10000)) {
       cout << "At "       << song_count << 
@@ -78,12 +85,6 @@ void WordList::read_lyrics (const char * filename, bool show_progress) {
       s->addWord(word);
       // add word to table
       words->addWord(word, s);
-      #ifdef ARTISTS
-      artists->addWord(artist, s);
-      #endif
-      #ifdef TITLES
-      titles->addWord(title, s);
-      #endif
     }
 
     // -- Important: skip the newline left behind
@@ -106,6 +107,7 @@ void WordList::search (string term) {
   #ifdef TITLES
   if (!term.compare(0, titlePrefix.size(), titlePrefix)) {
     string name = term.substr(titlePrefix.size());
+    cout << "name: " << name << endl;
     res = titles->getWord(name);
     // no word context
     if (res) res->print(false);
