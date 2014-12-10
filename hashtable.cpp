@@ -14,6 +14,7 @@ void HashTable::addWord (string word, Song *song) {
 // find the word in the table using linear probing
 word_vec_pair_t *HashTable::getWord (string word) {
   word = alpha_only(word);
+  uint32_t hash = hash_string(word);
   size_t probe = 0;
   word_vec_pair_t *res = NULL;
   // probe until you hit NULL - then the element cannot exist
