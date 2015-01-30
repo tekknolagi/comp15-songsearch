@@ -8,15 +8,15 @@ In this search, we use a hash table and vectors of Song classes.
 
 ### Files
 
-1. `hashfunc.cpp` and `hashfunc.h`
+1. `hash_func.cpp` and `hash_func.h`
   * Implement the Jenkins hash function used in building the hashtable.
-2. `hashtable.cpp` and `hashtable.h`
+2. `hash_table.cpp` and `hash_table.h`
   * Implement the hashtable used to store the words, songs, and frequencies.
 3. `song.cpp` and `song.h`
   * Implement the Song class, which stores artist, title, and lyrics.
 4. `read_lyrics.cpp` and `read_lyrics.h`
   * Read the lyrics from a file and add to hashtable.
-5. `wordlist.cpp` and `wordlist.h`
+5. `word_list.cpp` and `word_list.h`
   * Some glue to pull all the aforementioned components together.
 5. `main.cpp`
   * Run the search on a (large) file.

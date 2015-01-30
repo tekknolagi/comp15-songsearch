@@ -6,7 +6,7 @@
 #include <sstream>
 #include <algorithm>
 
-#include "hashfunc.h"
+#include "hash_func.h"
 #include "song.h"
 
 using namespace std;

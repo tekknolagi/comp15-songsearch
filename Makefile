@@ -5,20 +5,12 @@ CXX ?= clang++
 FLAGS = -g3 #-Wall -O3  -W -Wextra -pedantic #-Werror
 
 songsearch: 
-	${CXX} ${FLAGS} -o songsearch main.cpp song.cpp hashtable.cpp \
-			hashfunc.cpp read_lyrics.cpp wordlist.cpp
+	${CXX} ${FLAGS} -o songsearch main.cpp song.cpp hash_table.cpp \
+			hash_func.cpp read_lyrics.cpp word_list.cpp
 
 extras: FLAGS += -DARTISTS -DTITLES
 extras: songsearch
 
 clean:
 	rm -f songsearch
-
-provide_design:
-	provide comp15 hw6_design songsearch_design.txt
-
-provide:
-	provide comp15 hw6 Makefile main.cpp song.cpp hashtable.cpp hashfunc.cpp \
-		read_lyrics.cpp song.h hashtable.h hashfunc.h read_lyrics.h \
-		wordlist.cpp wordlist.h
 

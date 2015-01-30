@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "song.h"
-#include "hashtable.h"
+#include "hash_table.h"
 
 class WordList {
  public:

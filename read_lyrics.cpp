@@ -10,7 +10,7 @@
 #include <vector>
 #include <fstream>
 
-#include "hashtable.h"
+#include "hash_table.h"
 #include "song.h"
 
 using namespace std;

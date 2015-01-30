@@ -3,7 +3,7 @@
  *
  */
 
-#include "wordlist.h"
+#include "word_list.h"
 
 using namespace std;
 
