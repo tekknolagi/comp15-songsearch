@@ -30,8 +30,10 @@ Song::Song (string artist, string title, string lyrics) {
 void Song::setLyrics (string lyrics) {
   string buf;
   stringstream ss(lyrics);
-  while (ss >> buf)
+
+  while (ss >> buf) {
     addWord(buf);
+  }
 }
 
 void Song::addWord (string word) {
@@ -52,8 +54,8 @@ string Song::getContext (string word) {
       // go 5 (or to the beginning) back
       // and go 5 (or to the end) forward
       vector<string>::iterator
-	first = i - 5,
-	last = i + 6; // .end() is past the back of the array
+      first = i - 5,
+      last = i + 6; // .end() is past the back of the array
       first = (first < lyrics.begin()) ? lyrics.begin() : first;
       last  = (last > lyrics.end()) ? lyrics.end() : last;
 

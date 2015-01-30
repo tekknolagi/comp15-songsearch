@@ -24,17 +24,23 @@ typedef struct word_freq_s {
   }
   // overrode so i could use std::sort
   // sorts BACKWARDS (ie descending order)
-  bool operator < (const word_freq_s& other) const {
+  bool operator < (const word_freq_s &other) const {
     return this->freq > other.freq;
   }
   // overrode so i could use std::find
   bool operator == (Song *other) {
-    if (!other) return false;
+    if (!other) {
+      return false;
+    }
+
     return song == other;
   }
   // this too
   bool operator != (Song *other) {
-    if (!other) return false;
+    if (!other) {
+      return false;
+    }
+
     return song != other;
     // dereference might be very slow according to perf:
     // return !(*this == other);
@@ -58,6 +64,7 @@ typedef struct word_vec_pair_s {
   void addWord (Song *song) {
     // this uses the overloaded operator(s)
     vector<word_freq_t>::iterator i = find(songs.begin(), songs.end(), song);
+
     // found
     if (i != songs.end()) {
       i->freq++;
@@ -67,30 +74,36 @@ typedef struct word_vec_pair_s {
       // shrink back to avoid memory bloat
       // is wrong if compared to 11 or 10 instead
       // ???
-      if (songs.size() > 12)
-	songs.resize(12);
+      if (songs.size() > 12) {
+        songs.resize(12);
+      }
     }
     // not found - add to back
-    else
+    else {
       songs.push_back(word_freq_t(song, 1));
+    }
   }
   // print all the contexts of this word in every song
   void print (bool context) {
     for (vector<word_freq_t>::iterator i = songs.begin(); i != songs.end(); i++) {
-      if (i - songs.begin() == 10) break;
-      if (context)
-	cout << i->song->getContext(word);
+      if (i - songs.begin() == 10) {
+        break;
+      }
+
+      if (context) {
+        cout << i->song->getContext(word);
+      }
       else {
-	cout << "Title: " << i->song->getTitle() << endl;
-	cout << "Artist: " << i->song->getArtist() << endl;
-	cout << endl;
+        cout << "Title: " << i->song->getTitle() << endl;
+        cout << "Artist: " << i->song->getArtist() << endl;
+        cout << endl;
       }
     }
   }
 } word_vec_pair_t;
 
 class HashTable {
- public:
+public:
   HashTable () {
     load = 0;
     size = 0;
@@ -100,28 +113,32 @@ class HashTable {
   HashTable (size_t size) {
     load = 0;
     this->size = size;
-    contents = new word_vec_pair_t*[size];
-    for (size_t i = 0; i < size; i++)
+    contents = new word_vec_pair_t *[size];
+
+    for (size_t i = 0; i < size; i++) {
       contents[i] = NULL;
+    }
   }
   // destroy the entire table...
   // TODO: may leak
   ~HashTable () {
     for (size_t i = 0; i < size; i++)
-      if (contents[i])
-    	delete contents[i];
+      if (contents[i]) {
+        delete contents[i];
+      }
+
     delete [] contents;
   }
   void addWord (string word, Song *song);
   word_vec_pair_t *getWord (string word);
 
- private:
+private:
   void insert (string word, Song *song);
   void resize ();
   // get the load factor for the table
   // generally a good idea to keep load < 0.6
   double getLoad () {
-    return load/(int) size;
+    return load / (int) size;
   }
 
   double load;

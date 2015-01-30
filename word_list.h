@@ -7,7 +7,7 @@
 #include "hash_table.h"
 
 class WordList {
- public:
+public:
   WordList ();
   ~WordList ();
 
@@ -15,18 +15,18 @@ class WordList {
   void search (string term);
   void repl ();
 
- private:
+private:
   HashTable *words;
 
-  #ifdef ARTISTS
+#ifdef ARTISTS
   string artistPrefix;
   HashTable *artists;
-  #endif
+#endif
 
-  #ifdef TITLES
+#ifdef TITLES
   string titlePrefix;
   HashTable *titles;
-  #endif
+#endif
 
   vector<Song *> songs;
 };

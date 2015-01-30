@@ -3,12 +3,14 @@
 int main (int argc, char *argv[]) {
   WordList db = WordList();
 
-  if (argc == 2)
-    // if there is a filename on the command line
+  // if there is a filename on the command line
+  if (argc == 2) {
     db.read_lyrics(argv[1], false);
-  else
-    // use a pre-defined filename
+  }
+  // use a pre-defined filename
+  else {
     db.read_lyrics("rick_db.txt", false);
+  }
 
   db.repl();
 
