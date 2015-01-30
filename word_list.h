@@ -17,14 +17,17 @@ class WordList {
 
  private:
   HashTable *words;
+
   #ifdef ARTISTS
   string artistPrefix;
   HashTable *artists;
   #endif
+
   #ifdef TITLES
   string titlePrefix;
   HashTable *titles;
   #endif
+
   vector<Song *> songs;
 };
 

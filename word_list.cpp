@@ -8,24 +8,28 @@ using namespace std;
 
 WordList::WordList () {
   words = new HashTable(1);
-  #ifdef ARTISTS
+
+#ifdef ARTISTS
   artistPrefix = "a:";
   artists = new HashTable(1);
-  #endif
-  #ifdef TITLES
+#endif
+
+#ifdef TITLES
   titlePrefix = "t:";
   titles = new HashTable(1);
-  #endif
+#endif
 }
 
 WordList::~WordList () {
   delete words;
-  #ifdef ARTISTS
+
+#ifdef ARTISTS
   delete artists;
-  #endif
-  #ifdef TITLES
+#endif
+
+#ifdef TITLES
   delete titles;
-  #endif
+#endif
   
   // free all the songs from the vector
   Song *cur = NULL;
@@ -37,15 +41,9 @@ WordList::~WordList () {
   }
 }
 
-//
-// read_lyics 
-//   purpose: read in song data from a disk file
-//   arguments: the name of the file, bool to ask for progress status
-//   returns: nothing
-//   does: calls a function each time a word is found
-//
-void WordList::read_lyrics (const char * filename, bool show_progress) {
-  ifstream in(filename);			// creates an input stream
+void WordList::read_lyrics (const char *filename, bool show_progress) {
+  // creates an input stream
+  ifstream in(filename);
   int song_count = 0;			// for progress indicator
   string artist, title, word;
 
@@ -63,18 +61,19 @@ void WordList::read_lyrics (const char * filename, bool show_progress) {
     Song *s = new Song(artist, title);
     songs.push_back(s);
 
-    #ifdef ARTISTS
+#ifdef ARTISTS
     artists->addWord(artist, s);
-    #endif
-    #ifdef TITLES
+#endif
+
+#ifdef TITLES
     titles->addWord(title, s);
-    #endif
+#endif
 
     // print song every 10000 processed
     if (show_progress && !(++song_count % 10000)) {
       cout << "At "       << song_count << 
-	" Artist: " << artist     << 
-	" Title: `"   << title << "`" << endl;
+        " Artist: " << artist     << 
+        " Title: `"   << title << "`" << endl;
     }
 
     // -- Then read all words until we hit the 
@@ -94,7 +93,8 @@ void WordList::read_lyrics (const char * filename, bool show_progress) {
 
 void WordList::search (string term) {
   word_vec_pair_t *res = words->getWord(term);
-  #ifdef ARTISTS
+
+#ifdef ARTISTS
   // searching by artist: "does it start with 'a:'?"
   if (!term.compare(0, artistPrefix.size(), artistPrefix)) {
     string name = term.substr(artistPrefix.size());
@@ -103,15 +103,17 @@ void WordList::search (string term) {
     if (res) res->print(false);
   }
   // searching by title
-  #endif
-  #ifdef TITLES
+#endif
+
+#ifdef TITLES
   if (!term.compare(0, titlePrefix.size(), titlePrefix)) {
     string name = term.substr(titlePrefix.size());
     res = titles->getWord(name);
     // no word context
     if (res) res->print(false);
   }
-  #endif
+#endif
+
   res = words->getWord(term);
   // yes word context
   if (res) res->print(true);
@@ -120,8 +122,7 @@ void WordList::search (string term) {
 void WordList::repl () {
   string term = "";
   while (true) {
-    if (isatty(0))
-      cout << "> "; 
+    if (isatty(0)) cout << "> "; 
     // asked to break by user, and did not hit EOF
     if (getline(cin, term) && term == "<BREAK>") break;
     // search table for term... and print
