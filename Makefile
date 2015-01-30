@@ -2,7 +2,8 @@
 # Makefile for SongSearch, Assignment 6
 #
 CXX ?= clang++
-FLAGS = -g3 #-Wall -O3  -W -Wextra -pedantic #-Werror
+# FLAGS = -g3 
+FLAGS = -Wall -O3  -W -Wextra -pedantic #-Werror
 
 songsearch: 
 	${CXX} ${FLAGS} -o songsearch main.cpp song.cpp hash_table.cpp \
