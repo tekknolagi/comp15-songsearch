@@ -102,7 +102,6 @@ void WordList::search (string term) {
   word_vec_pair_t *res = words->getWord(term);
 
 #ifdef ARTISTS
-
   // searching by artist: "does it start with 'a:'?"
   if (!term.compare(0, artistPrefix.size(), artistPrefix)) {
     string name = term.substr(artistPrefix.size());
@@ -113,7 +112,6 @@ void WordList::search (string term) {
       res->print(false);
     }
   }
-
 #endif
 
 #ifdef TITLES
@@ -127,7 +125,6 @@ void WordList::search (string term) {
       res->print(false);
     }
   }
-
 #endif
 
   res = words->getWord(term);
