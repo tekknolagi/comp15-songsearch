@@ -114,11 +114,10 @@ void WordList::search (string term) {
     }
   }
 
-  // searching by title
 #endif
 
 #ifdef TITLES
-
+  // searching by title: "does it start with 't:'?"
   if (!term.compare(0, titlePrefix.size(), titlePrefix)) {
     string name = term.substr(titlePrefix.size());
     res = titles->getWord(name);
