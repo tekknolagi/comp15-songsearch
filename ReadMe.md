@@ -92,7 +92,7 @@ To search by artist:
 
 To search by title:
 
-`a:Never Gonna Give You Up`
+`t:Never Gonna Give You Up`
 
 Currently these together double the build time (not triple :)).
 
