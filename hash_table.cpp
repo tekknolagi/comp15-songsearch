@@ -1,9 +1,36 @@
 #include <iostream>
+
+#include "word_freq.h"
 #include "hash_table.h"
 
 using namespace std;
 
 string alpha_only (string s);
+
+HashTable::HashTable () {
+  load = 0;
+  size = 0;
+  contents = NULL;
+}
+
+HashTable::HashTable (size_t size) {
+  load = 0;
+  this->size = size;
+  contents = new word_vec_pair *[size];
+
+  for (size_t i = 0; i < size; i++) {
+    contents[i] = NULL;
+  }
+}
+
+HashTable::~HashTable () {
+  for (size_t i = 0; i < size; i++)
+    if (contents[i]) {
+      delete contents[i];
+    }
+
+  delete [] contents;
+}
 
 // resize if necessary, then add the word
 void HashTable::addWord (string word, Song *song) {
@@ -15,11 +42,11 @@ void HashTable::addWord (string word, Song *song) {
 }
 
 // find the word in the table using linear probing
-word_vec_pair_t *HashTable::getWord (string word) {
+word_vec_pair *HashTable::getWord (string word) {
   word = alpha_only(word);
   uint32_t hash = hash_string(word);
   size_t probe = 0;
-  word_vec_pair_t *res = NULL;
+  word_vec_pair *res = NULL;
 
   // probe until you hit NULL - then the element cannot exist
   // can do this because we don't delete from the hashtable
@@ -42,7 +69,7 @@ void HashTable::insert (string word, Song *song) {
   // check to see if anything is at the location
   if (contents[hash % size]) {
     size_t probe = 0;
-    word_vec_pair_t *res = NULL;
+    word_vec_pair *res = NULL;
 
     // guess not... so probe on
     while ((res = contents[(hash + probe) % size])) {
@@ -56,12 +83,12 @@ void HashTable::insert (string word, Song *song) {
     }
 
     // ah, we hit a NULL - so add a new thing there
-    contents[(hash + probe) % size] = new word_vec_pair_t(word, song);
+    contents[(hash + probe) % size] = new word_vec_pair(word, song);
     load++;
   }
   else {
     // add a new pair at the location
-    contents[hash % size] = new word_vec_pair_t(word, song);
+    contents[hash % size] = new word_vec_pair(word, song);
     load++;
   }
 }
@@ -72,7 +99,7 @@ void HashTable::resize () {
   size_t newsize = size * 2 + 1;
 
   // initialize the new table's contents to NULL
-  word_vec_pair_t **newcontents = new word_vec_pair_t *[newsize];
+  word_vec_pair **newcontents = new word_vec_pair *[newsize];
 
   for (size_t i = 0; i < newsize; i++) {
     newcontents[i] = NULL;
@@ -103,6 +130,10 @@ void HashTable::resize () {
   delete [] contents;
   contents = newcontents;
   size = newsize;
+}
+
+double HashTable::getLoad () {
+  return load / (int) size;
 }
 
 string alpha_only (string s) {

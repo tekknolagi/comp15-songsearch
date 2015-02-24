@@ -99,7 +99,7 @@ void WordList::read_lyrics (const char *filename, bool show_progress) {
 }
 
 void WordList::search (string term) {
-  word_vec_pair_t *res = words->getWord(term);
+  word_vec_pair *res = words->getWord(term);
 
 #ifdef ARTISTS
   // searching by artist: "does it start with 'a:'?"
